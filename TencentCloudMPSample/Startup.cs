@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.RegisterServices;
@@ -98,10 +95,10 @@ namespace TencentCloudMPSample
                  * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                 /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
                  */
-                //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
+                Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
 
-                ////以下会立即将全局缓存设置为 Redis
-                //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
+                //以下会立即将全局缓存设置为 Redis
+                Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
                 //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                 //也可以通过以下方式自定义当前需要启用的缓存策略
@@ -138,7 +135,7 @@ namespace TencentCloudMPSample
             //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）         -- PDBMARK Redis
             if (useRedis)
             {
-                //app.UseSenparcWeixinCacheRedis();
+                app.UseSenparcWeixinCacheRedis();
             }                                                                                     // PDBMARK_END
 
 
@@ -166,6 +163,30 @@ namespace TencentCloudMPSample
             /* 微信配置结束 */
 
             #endregion
+        }
+
+        /// <summary>
+        /// 配置微信跟踪日志
+        /// </summary>
+        private void ConfigTraceLog()
+        {
+            //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
+
+            //如果全局的IsDebug（Senparc.CO2NET.Config.IsDebug）为false，此处可以单独设置true，否则自动为true
+            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("系统日志", "系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
+
+            //全局自定义日志记录回调
+            Senparc.CO2NET.Trace.SenparcTrace.OnLogFunc = () =>
+            {
+                //加入每次触发Log后需要执行的代码
+            };
+
+            //当发生基于WeixinException的异常时触发
+            WeixinTrace.OnWeixinExceptionFunc = ex =>
+            {
+                //加入每次触发WeixinExceptionLog后需要执行的代码
+
+            };
         }
     }
 }

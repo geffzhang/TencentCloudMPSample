@@ -10,6 +10,7 @@
 
 
 using Microsoft.AspNetCore.Mvc;
+using Senparc.Weixin;
 
 namespace TencentCloudMPSample.Controllers
 {
