@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Kubernetes.Configuration.Extensions.Configmap;
+using Kubernetes.Configuration.Extensions.Secret;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,12 @@ namespace TencentCloudMPSample
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddKubernetesConfigmap("qcloud-app:mp", namespaceSelector: "qcloud", reloadOnChange: true);
+                    config.AddKubernetesSecret("qcloud-app:mp", namespaceSelector: "qcloud", reloadOnChange: true);
+
+                })
                 .UseStartup<Startup>();
     }
 }

@@ -17,11 +17,14 @@ using System.IO;
 namespace TencentCloudMPSample.Controllers
 {
     using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
     using Senparc.CO2NET.HttpUtility;
     using Senparc.Weixin;
     using Senparc.Weixin.Entities;
     using Senparc.Weixin.MP;
     using Senparc.Weixin.MP.MvcExtension;
+    using System.Threading.Tasks;
+    using TencentCloudMPSample.EFCore.Servers;
     using TencentCloudMPSample.Utilities;
 
     public partial class WeixinController : Controller
@@ -30,13 +33,16 @@ namespace TencentCloudMPSample.Controllers
         public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
+        private readonly WeixinInteractionServer _weixinInteractionServer;
+
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
         SenparcWeixinSetting _senparcWeixinSetting;
 
-        public WeixinController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        public WeixinController(IOptions<SenparcWeixinSetting> senparcWeixinSetting, WeixinInteractionServer weixinInteractionServer)
         {
             _senparcWeixinSetting = senparcWeixinSetting.Value;
+            _weixinInteractionServer = weixinInteractionServer;
         }
 
         /// <summary>
@@ -64,7 +70,7 @@ namespace TencentCloudMPSample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(PostModel postModel)
+        public async Task<ActionResult> PostAsync(PostModel postModel)
         {
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
@@ -144,7 +150,7 @@ namespace TencentCloudMPSample.Controllers
                 }
 
                 #endregion
-
+                await _weixinInteractionServer.AddInteraction(messageHandler.RequestDocument.ToString(), messageHandler.ResponseDocument.ToString());
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 //return new WeixinResult(messageHandler);//v0.8+
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
