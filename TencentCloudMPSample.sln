@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TencentCloudMPSample", "TencentCloudMPSample\TencentCloudMPSample.csproj", "{45DDBC2C-423F-49C1-88C3-A305FCAA2611}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TencentCloudMPSample", "TencentCloudMPSample\TencentCloudMPSample.csproj", "{45DDBC2C-423F-49C1-88C3-A305FCAA2611}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TencentCloudMPSample.EFCore", "TencentCloudMPSample.EFCore\TencentCloudMPSample.EFCore.csproj", "{3109E32B-E453-4A72-A22D-C6214F270BF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelligentVoice", "IntelligentVoice\IntelligentVoice.csproj", "{CA12E853-436F-4DA1-A1CC-CE80A13977F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineTranslation", "MachineTranslation\MachineTranslation.csproj", "{4F8CDEF0-620D-4A54-8F3A-BB10B94AEC29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TencentAI", "TencentAI", "{704EEDBF-FB6F-49D3-9650-24BE31F9077A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,25 @@ Global
 		{45DDBC2C-423F-49C1-88C3-A305FCAA2611}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45DDBC2C-423F-49C1-88C3-A305FCAA2611}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45DDBC2C-423F-49C1-88C3-A305FCAA2611}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3109E32B-E453-4A72-A22D-C6214F270BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3109E32B-E453-4A72-A22D-C6214F270BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3109E32B-E453-4A72-A22D-C6214F270BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3109E32B-E453-4A72-A22D-C6214F270BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA12E853-436F-4DA1-A1CC-CE80A13977F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA12E853-436F-4DA1-A1CC-CE80A13977F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA12E853-436F-4DA1-A1CC-CE80A13977F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA12E853-436F-4DA1-A1CC-CE80A13977F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F8CDEF0-620D-4A54-8F3A-BB10B94AEC29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F8CDEF0-620D-4A54-8F3A-BB10B94AEC29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F8CDEF0-620D-4A54-8F3A-BB10B94AEC29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F8CDEF0-620D-4A54-8F3A-BB10B94AEC29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA12E853-436F-4DA1-A1CC-CE80A13977F5} = {704EEDBF-FB6F-49D3-9650-24BE31F9077A}
+		{4F8CDEF0-620D-4A54-8F3A-BB10B94AEC29} = {704EEDBF-FB6F-49D3-9650-24BE31F9077A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F922BC9A-779B-4537-AB29-B5425ACF9F83}

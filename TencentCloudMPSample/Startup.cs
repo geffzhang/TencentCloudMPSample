@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -11,6 +12,9 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.RegisterServices;
+using System;
+using TencentCloudMPSample.EFCore;
+using TencentCloudMPSample.EFCore.Servers;
 using TencentCloudMPSample.Utilities;
 
 namespace TencentCloudMPSample
@@ -28,6 +32,10 @@ namespace TencentCloudMPSample
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            FFmpegUtil.InitFFmpeg();
+
+            services.AddDbContext<TencentCloudDbContext>(option => option.UseMySql(Configuration.GetConnectionString("Mysql")));
+            services.AddScoped<WeixinInteractionServer>();
             services.AddHttpContextAccessor();
             services.AddMvc();
 
