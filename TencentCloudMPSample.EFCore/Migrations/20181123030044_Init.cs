@@ -13,8 +13,8 @@ namespace TencentCloudMPSample.EFCore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Request = table.Column<string>(maxLength: 1000, nullable: true),
-                    Response = table.Column<string>(maxLength: 1000, nullable: true)
+                    Request = table.Column<string>(nullable: true),
+                    Response = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

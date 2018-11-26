@@ -22,10 +22,10 @@ namespace TencentCloudMPSample.EFCore.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Request")
-                        .HasMaxLength(1000);
+                        ;
 
                     b.Property<string>("Response")
-                        .HasMaxLength(1000);
+                        ;
 
                     b.HasKey("Id");
 

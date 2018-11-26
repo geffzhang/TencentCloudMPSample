@@ -10,10 +10,8 @@ namespace TencentCloudMPSample.EFCore.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(1000)]
         public string Request { get; set; }
 
-        [MaxLength(1000)]
         public string Response { get; set; }
     }
 }
