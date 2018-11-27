@@ -112,7 +112,6 @@ namespace TencentCloudMPSample.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
-            //说明：实际项目中这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
             var defaultResponseMessage = base.CreateResponseMessage<ResponseMessageText>();
             var mtServer = new MachineTranslationServe();
             var tranText = mtServer.TextTranslate(requestMessage.Content).ConfigureAwait(false).GetAwaiter().GetResult();
