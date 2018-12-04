@@ -21,12 +21,12 @@ namespace TencentCloudMPSample
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    config.AddKubernetesConfigmap("qcloud-app:mp", namespaceSelector: "qcloud", reloadOnChange: true);
-                    config.AddKubernetesSecret("qcloud-app:mp", namespaceSelector: "qcloud", reloadOnChange: true);
+                //.ConfigureAppConfiguration((hostingContext, config) =>
+                //{
+                //    config.AddKubernetesConfigmap("qcloud-app:mp", namespaceSelector: "qcloud", reloadOnChange: true);
+                //    config.AddKubernetesSecret("qcloud-app:mp", namespaceSelector: "qcloud", reloadOnChange: true);
 
-                })
+                //})
                 .UseStartup<Startup>();
     }
 }
